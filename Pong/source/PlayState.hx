@@ -6,6 +6,7 @@ import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.util.FlxMath;
+import Paddle;
 
 /**
  * A FlxState which can be used for the actual gameplay.
@@ -18,6 +19,9 @@ class PlayState extends FlxState
 	override public function create():Void
 	{
 		super.create();
+
+		add(new Paddle(30,200));
+		add(new Paddle(FlxG.width - 40,200));
 	}
 	
 	/**
