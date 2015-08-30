@@ -20,8 +20,8 @@ class PlayState extends FlxState
 	{
 		super.create();
 
-		add(new Paddle(30,200));
-		add(new Paddle(FlxG.width - 40,200));
+		add(new Paddle(30,200,"W","S"));
+		add(new Paddle(FlxG.width - 40,200,"UP","DOWN"));
 	}
 	
 	/**
