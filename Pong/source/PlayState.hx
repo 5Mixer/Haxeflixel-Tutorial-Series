@@ -5,6 +5,7 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
+import flixel.util.FlxColor;
 import flixel.util.FlxMath;
 import flixel.group.FlxGroup;
 import Paddle;
@@ -16,12 +17,22 @@ class PlayState extends FlxState
 {
 	var ball:Ball;
 	var paddles:FlxGroup = new FlxGroup();
+
+	var leftScore = 0;
+	var rightScore = 0;
+
+	var scoreText:FlxText;
+
 	/**
 	 * Function that is called up when to state is created to set it up. 
 	 */
 	override public function create():Void
 	{
 		super.create();
+
+		scoreText = new FlxText(0,0,FlxG.width,"0|0");
+		scoreText.setFormat(null, 24, FlxColor.GREEN,"center");
+		add(scoreText);
 
 		paddles.add(new Paddle(30,200,"W","S"));
 		paddles.add(new Paddle(FlxG.width - 40,200,"UP","DOWN"));
@@ -49,5 +60,18 @@ class PlayState extends FlxState
 		FlxG.collide(ball,paddles,function (ball:FlxSprite,paddle:FlxSprite){
 			ball.velocity.y = (ball.getMidpoint().y - paddle.getMidpoint().y)*2;
 		});
-	}	
+
+		if (ball.x < 0){
+			//Increase right score
+			rightScore++;
+			ball.resetBall();
+			scoreText.text = leftScore + "|" + rightScore;
+		}
+		if (ball.x+ball.width > FlxG.width){
+			//Increase left score
+			leftScore++;
+			ball.resetBall();
+			scoreText.text = leftScore + "|" + rightScore;
+		}
+	}
 }

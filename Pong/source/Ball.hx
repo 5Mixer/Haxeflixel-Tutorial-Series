@@ -2,6 +2,7 @@ package ;
 
 import flixel.util.FlxColor;
 import flixel.FlxSprite;
+import flixel.util.FlxTimer;
 import flixel.FlxG;
 
 class Ball extends FlxSprite {
@@ -24,5 +25,16 @@ class Ball extends FlxSprite {
 		if (y+height > FlxG.height){
 			velocity.y *= -1;
 		}
+	}
+
+	public function resetBall () {
+		x = FlxG.width/2;
+		y = FlxG.height/2;
+
+		velocity.set();
+
+		new FlxTimer(2, function (timer){
+			velocity.x = 150;
+		} );
 	}
 }
