@@ -11,7 +11,7 @@ class Ball extends FlxSprite {
 
 		makeGraphic(10,10,FlxColor.WHITE);
 
-		velocity.x = 150;
+		velocity.x = 330;
 
 		elasticity = 1;
 	}
@@ -38,7 +38,7 @@ class Ball extends FlxSprite {
 		velocity.set();
 
 		new FlxTimer(2, function (timer){
-			velocity.x = 150;
+			velocity.x = 330;
 		} );
 	}
 }

@@ -15,7 +15,7 @@ class Paddle extends FlxSprite {
 		upKey = _upKey;
 		downKey = _downKey;
 
-		makeGraphic(10,100,FlxColor.WHITE);
+		makeGraphic(10,50,FlxColor.WHITE);
 
 		immovable = true;
 	}

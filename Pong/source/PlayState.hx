@@ -40,7 +40,7 @@ class PlayState extends FlxState
 
 		background = new FlxSprite();
 		background.makeGraphic(FlxG.width,FlxG.height,FlxColor.WHITE);
-		background.color = FlxColor.BLACK;
+		background.color = FlxColorUtil.makeFromHSBA(FlxRandom.intRanged(1,360),0.7,0.7);
 		add(background);
 
 		scoreText = new FlxText(0,0,FlxG.width,"0|0");
@@ -76,7 +76,7 @@ class PlayState extends FlxState
 		super.update();
 
 		FlxG.collide(ball,paddles,function (ball:FlxSprite,paddle:FlxSprite){
-			ball.velocity.y = (ball.getMidpoint().y - paddle.getMidpoint().y)*2;
+			ball.velocity.y = (ball.getMidpoint().y - paddle.getMidpoint().y)*6;
 
 			FlxG.sound.play("assets/sounds/pop.wav");
 
