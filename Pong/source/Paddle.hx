@@ -23,10 +23,10 @@ class Paddle extends FlxSprite {
 	override public function update () {
 		super.update();
 
-		if (FlxG.keys.anyPressed([upKey])){
-			y -= 1;
-		}else if (FlxG.keys.anyPressed([downKey])){
-			y += 1;
+		if (FlxG.keys.anyPressed([upKey]) && y > 0){
+			y -= 3;
+		}else if (FlxG.keys.anyPressed([downKey]) && y+height < FlxG.height){
+			y += 3;
 		}
 	}
 

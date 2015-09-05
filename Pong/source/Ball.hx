@@ -21,9 +21,13 @@ class Ball extends FlxSprite {
 
 		if (y < 0){
 			velocity.y *= -1;
+			FlxG.camera.shake(0.01,0.1);
+			FlxG.sound.play("assets/sounds/pop.wav");
 		}
 		if (y+height > FlxG.height){
 			velocity.y *= -1;
+			FlxG.camera.shake(0.01,0.1);
+			FlxG.sound.play("assets/sounds/pop.wav");
 		}
 	}
 
