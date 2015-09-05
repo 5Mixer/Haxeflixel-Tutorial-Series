@@ -16,6 +16,8 @@ class Paddle extends FlxSprite {
 		downKey = _downKey;
 
 		makeGraphic(10,100,FlxColor.WHITE);
+
+		immovable = true;
 	}
 
 	override public function update () {

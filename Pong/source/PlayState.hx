@@ -6,6 +6,7 @@ import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.util.FlxMath;
+import flixel.group.FlxGroup;
 import Paddle;
 
 /**
@@ -13,6 +14,8 @@ import Paddle;
  */
 class PlayState extends FlxState
 {
+	var ball:Ball;
+	var paddles:FlxGroup = new FlxGroup();
 	/**
 	 * Function that is called up when to state is created to set it up. 
 	 */
@@ -20,8 +23,11 @@ class PlayState extends FlxState
 	{
 		super.create();
 
-		add(new Paddle(30,200,"W","S"));
-		add(new Paddle(FlxG.width - 40,200,"UP","DOWN"));
+		paddles.add(new Paddle(30,200,"W","S"));
+		paddles.add(new Paddle(FlxG.width - 40,200,"UP","DOWN"));
+		add(paddles);
+
+		add(ball = new Ball(FlxG.width/2,FlxG.height/2));
 	}
 	
 	/**
@@ -39,5 +45,9 @@ class PlayState extends FlxState
 	override public function update():Void
 	{
 		super.update();
+
+		FlxG.collide(ball,paddles,function (ball,paddles){
+			//increase score
+		});
 	}	
 }
