@@ -46,8 +46,8 @@ class PlayState extends FlxState
 	{
 		super.update();
 
-		FlxG.collide(ball,paddles,function (ball,paddles){
-			//increase score
+		FlxG.collide(ball,paddles,function (ball:FlxSprite,paddle:FlxSprite){
+			ball.velocity.y = (ball.getMidpoint().y - paddle.getMidpoint().y)*2;
 		});
 	}	
 }

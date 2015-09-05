@@ -10,12 +10,19 @@ class Ball extends FlxSprite {
 
 		makeGraphic(10,10,FlxColor.WHITE);
 
-		velocity.x = 100;
+		velocity.x = 150;
 
 		elasticity = 1;
 	}
 
 	override public function update (){
 		super.update();
+
+		if (y < 0){
+			velocity.y *= -1;
+		}
+		if (y+height > FlxG.height){
+			velocity.y *= -1;
+		}
 	}
 }
