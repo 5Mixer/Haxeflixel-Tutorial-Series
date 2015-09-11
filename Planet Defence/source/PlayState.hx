@@ -13,6 +13,7 @@ import flixel.util.FlxMath;
 class PlayState extends FlxState
 {
 	var planet:Planet;
+	var player:Player;
 	/**
 	 * Function that is called up when to state is created to set it up. 
 	 */
@@ -22,6 +23,9 @@ class PlayState extends FlxState
 
 		planet = new Planet(FlxG.width/2,FlxG.height/2);
 		add(planet);
+
+		player = new Player(0,planet);
+		add(player);
 
 	}
 	
