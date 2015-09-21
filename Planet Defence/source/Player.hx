@@ -11,7 +11,7 @@ class Player extends FlxSprite {
 
 	var angleFromPlanet:Float;
 	var planet:Planet;
-	var speed:Float = 1;
+	var speed:Float = 40;
 
 	public function new (_angle,_planet){
 		super(0,0);
@@ -42,9 +42,11 @@ class Player extends FlxSprite {
 		if (leftKey){
 			angleFromPlanet -= FlxG.elapsed * speed;
 			animation.play("Walk");
+			facing = FlxObject.LEFT;
 		}else if (rightKey){
 			angleFromPlanet+= FlxG.elapsed * speed;
 			animation.play("Walk");
+			facing = FlxObject.RIGHT;
 		}else{
 			animation.play("Idle");
 		}
@@ -60,9 +62,9 @@ class Player extends FlxSprite {
 	function calculatePosition () {
 		//This functions works out our sprites X and Y position, based on an Angle, and a Planet.
 		//It also rotates the sprite to face the planet
-		x = Math.cos(angleFromPlanet-90 * Math.PI / 180) * (planet.planetRadius - 4 + 8) + planet.getMidpoint().x - 8;
-		y = Math.sin(angleFromPlanet-90 * Math.PI / 180) * (planet.planetRadius - 4  + 8) + planet.getMidpoint().y - 8;
-		
+		x = Math.cos((angleFromPlanet-90) *( Math.PI / 180)) * (planet.planetRadius - 4 + 8) + planet.getMidpoint().x - 8;
+		y = Math.sin((angleFromPlanet-90) * (Math.PI / 180)) * (planet.planetRadius - 4  + 8) + planet.getMidpoint().y - 8;
+
 		angle = FlxAngle.angleBetween(planet,this,true)+90;
 	}
 }

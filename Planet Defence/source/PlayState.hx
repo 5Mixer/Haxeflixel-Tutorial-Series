@@ -4,6 +4,9 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.text.FlxText;
+import flixel.util.FlxRandom;
+import flixel.util.FlxTimer;
+import flixel.group.FlxGroup;
 import flixel.ui.FlxButton;
 import flixel.util.FlxMath;
 
@@ -14,6 +17,8 @@ class PlayState extends FlxState
 {
 	var planet:Planet;
 	var player:Player;
+
+	var enemyGroup:FlxGroup = new FlxGroup();
 	/**
 	 * Function that is called up when to state is created to set it up. 
 	 */
@@ -24,8 +29,12 @@ class PlayState extends FlxState
 		planet = new Planet(FlxG.width/2,FlxG.height/2);
 		add(planet);
 
+		add(enemyGroup);
+
 		player = new Player(0,planet);
 		add(player);
+
+		new FlxTimer(4,createEnemy,0);
 
 	}
 	
@@ -44,5 +53,9 @@ class PlayState extends FlxState
 	override public function update():Void
 	{
 		super.update();
-	}	
+	}
+
+	function createEnemy (timer){
+		enemyGroup.add(new Enemy(FlxRandom.intRanged(1,360),planet));
+	}
 }
