@@ -29,6 +29,8 @@ class Enemy extends FlxSprite {
 	override public function update () {
 		super.update();
 
+		animation.play("Idle");
+
 		distanceFromGround -= FlxG.elapsed * speed;
 
 		if (distanceFromGround < 1){

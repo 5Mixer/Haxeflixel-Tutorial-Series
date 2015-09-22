@@ -37,7 +37,7 @@ class Player extends FlxSprite {
 
 		var leftKey = FlxG.keys.anyPressed(["LEFT","A"]);
 		var rightKey = FlxG.keys.anyPressed(["RIGHT","D"]);
-		var shootKey = FlxG.keys.anyPressed(["UP","W","SPACE"]);
+		
 
 		if (leftKey){
 			angleFromPlanet -= FlxG.elapsed * speed;
@@ -50,11 +50,6 @@ class Player extends FlxSprite {
 		}else{
 			animation.play("Idle");
 		}
-
-		if (shootKey){
-			//The player should shoot
-		}
-		
 
 		calculatePosition();
 	}
