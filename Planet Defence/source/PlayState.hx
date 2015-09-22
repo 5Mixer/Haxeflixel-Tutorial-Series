@@ -21,6 +21,7 @@ class PlayState extends FlxState
 	var reloadTimer:Float = 0;
 
 	var enemyGroup:FlxGroup = new FlxGroup();
+	var turretGroup:FlxGroup = new FlxGroup();
 	var bulletGroup:FlxGroup = new FlxGroup();
 	/**
 	 * Function that is called up when to state is created to set it up. 
@@ -30,6 +31,8 @@ class PlayState extends FlxState
 		super.create();
 
 		add(bulletGroup);
+
+		add(turretGroup);
 
 		planet = new Planet(FlxG.width/2,FlxG.height/2);
 		add(planet);
@@ -60,6 +63,11 @@ class PlayState extends FlxState
 	override public function update():Void
 	{
 		super.update();
+
+		//Allow placing of turrets
+		if (FlxG.keys.justPressed.SHIFT){
+			turretGroup.add(new Turret(player.angle,player.x,player.y,bulletGroup));
+		}
 
 		reloadTimer += FlxG.elapsed;
 
