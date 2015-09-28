@@ -6,9 +6,12 @@ import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.util.FlxRandom;
 import flixel.util.FlxTimer;
+import flixel.util.FlxSpriteUtil;
 import flixel.group.FlxGroup;
 import flixel.ui.FlxButton;
 import flixel.util.FlxMath;
+import flixel.util.FlxColor;
+import flixel.ui.FlxButton;
 
 /**
  * A FlxState which can be used for the actual gameplay.
@@ -23,6 +26,15 @@ class PlayState extends FlxState
 	var enemyGroup:FlxGroup = new FlxGroup();
 	var turretGroup:FlxGroup = new FlxGroup();
 	var bulletGroup:FlxGroup = new FlxGroup();
+
+	var moneyText:FlxText;
+	var healthText:FlxText;
+	var turretButton:FlxButton;
+
+	var lives:Int = 3;
+	var money:Int = 0;
+	var turretCost:Int = 15;
+
 	/**
 	 * Function that is called up when to state is created to set it up. 
 	 */
@@ -41,6 +53,22 @@ class PlayState extends FlxState
 
 		player = new Player(0,planet);
 		add(player);
+
+		//UI elements
+		moneyText = new FlxText(0,0,FlxG.width,"$0");
+		moneyText.setFormat(null,16,FlxColor.GOLDENROD);
+		moneyText.scrollFactor.set();
+		add(moneyText);
+
+		turretButton = new FlxButton(0,0,"Buy Turret", createTurret );
+		FlxSpriteUtil.screenCenter(turretButton,true,false);
+		turretButton.scrollFactor.set();
+		add(turretButton);
+
+		healthText = new FlxText(0,0,FlxG.width,"3/3");
+		healthText.setFormat(null,16,FlxColor.CORAL,"right");
+		healthText.scrollFactor.set();
+		add(healthText);
 
 		new FlxTimer(4,createEnemy,0);
 
@@ -66,7 +94,7 @@ class PlayState extends FlxState
 
 		//Allow placing of turrets
 		if (FlxG.keys.justPressed.SHIFT){
-			turretGroup.add(new Turret(player.angle,player.x,player.y,bulletGroup));
+			createTurret();
 		}
 
 		reloadTimer += FlxG.elapsed;
@@ -82,12 +110,33 @@ class PlayState extends FlxState
 		}
 
 		FlxG.collide(enemyGroup,bulletGroup, function (e,b){
+			money += 5;
 			e.kill();
 			b.kill();
 		});
+
+		healthText.text = lives+"/3";
+		moneyText.text = "$"+money;
+		turretButton.visible = money >= turretCost;
 	}
 
 	function createEnemy (timer){
-		enemyGroup.add(new Enemy(FlxRandom.intRanged(1,360),planet));
+		enemyGroup.add(new Enemy(FlxRandom.intRanged(1,360),planet, onTouchGround));
+	}
+
+	function onTouchGround () {
+		lives--;
+		if (lives == 0){
+			FlxG.resetGame();
+		}
+	}
+
+	function createTurret () {
+		if (money >= turretCost){
+			money -= turretCost;
+			turretGroup.add(new Turret(player.angle,player.x,player.y,bulletGroup));
+			turretCost += 5;
+		}
+		
 	}
 }

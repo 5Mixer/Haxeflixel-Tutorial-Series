@@ -13,9 +13,12 @@ class Enemy extends FlxSprite {
 	var planet:Planet;
 	var speed:Float = 18;
 	var distanceFromGround:Float = 150;
+	var onTouchGround:Void->Void;
 
-	public function new (_angle,_planet){
+	public function new (_angle,_planet,onTouchMethod){
 		super(0,0);
+
+		onTouchGround = onTouchMethod;
 
 		angleFromPlanet = _angle;
 		planet = _planet;
@@ -34,6 +37,7 @@ class Enemy extends FlxSprite {
 		distanceFromGround -= FlxG.elapsed * speed;
 
 		if (distanceFromGround < 1){
+			onTouchGround();
 			kill();
 		}
 
