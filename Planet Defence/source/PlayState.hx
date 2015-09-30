@@ -127,7 +127,7 @@ class PlayState extends FlxState
 	function onTouchGround () {
 		lives--;
 		if (lives == 0){
-			FlxG.resetGame();
+			FlxG.switchState(new MenuState());
 		}
 	}
 
