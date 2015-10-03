@@ -27,6 +27,8 @@ class PlayState extends FlxState
 	var turretGroup:FlxGroup = new FlxGroup();
 	var bulletGroup:FlxGroup = new FlxGroup();
 
+	var speedBoosts:FlxGroup = new FlxGroup();
+
 	var moneyText:FlxText;
 	var healthText:FlxText;
 	var turretButton:FlxButton;
@@ -54,6 +56,8 @@ class PlayState extends FlxState
 		player = new Player(0,planet);
 		add(player);
 
+		add(speedBoosts);
+
 		//UI elements
 		moneyText = new FlxText(0,0,FlxG.width,"$0");
 		moneyText.setFormat(null,16,FlxColor.GOLDENROD);
@@ -71,6 +75,7 @@ class PlayState extends FlxState
 		add(healthText);
 
 		new FlxTimer(4,createEnemy,0);
+		new FlxTimer(10,createBoost,0);
 
 		FlxG.worldBounds.setSize(1000,1000);
 
@@ -115,6 +120,15 @@ class PlayState extends FlxState
 			b.kill();
 		});
 
+		FlxG.collide(player,speedBoosts, function (p,sb){
+			sb.onTouchPlayer(p);
+			sb.kill();
+
+			new FlxTimer(6,function (timer){
+				p.speed = 40;
+			});
+		});
+
 		healthText.text = lives+"/3";
 		moneyText.text = "$"+money;
 		turretButton.visible = money >= turretCost;
@@ -122,6 +136,10 @@ class PlayState extends FlxState
 
 	function createEnemy (timer){
 		enemyGroup.add(new Enemy(FlxRandom.intRanged(1,360),planet, onTouchGround));
+	}
+
+	function createBoost (timer){
+		speedBoosts.add(new SpeedBoost(FlxRandom.intRanged(1,360),planet));
 	}
 
 	function onTouchGround () {

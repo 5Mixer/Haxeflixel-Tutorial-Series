@@ -11,7 +11,7 @@ class Player extends FlxSprite {
 
 	var angleFromPlanet:Float;
 	var planet:Planet;
-	var speed:Float = 40;
+	public var speed:Float = 40;
 
 	public function new (_angle,_planet){
 		super(0,0);
