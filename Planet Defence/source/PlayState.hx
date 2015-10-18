@@ -44,6 +44,9 @@ class PlayState extends FlxState
 	{
 		super.create();
 
+		var starField = new Stars(0,0,FlxG.width,FlxG.height, 100);
+		add(starField);
+
 		add(bulletGroup);
 
 		add(turretGroup);
