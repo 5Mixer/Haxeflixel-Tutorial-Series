@@ -62,7 +62,7 @@ class PlayState extends FlxState
 		add(speedBoosts);
 
 		//UI elements
-		moneyText = new FlxText(0,0,FlxG.width,"$0");
+		moneyText = new FlxText(0,0,FlxG.width/2,"$0");
 		moneyText.setFormat(null,16,FlxColor.GOLDENROD);
 		moneyText.scrollFactor.set();
 		add(moneyText);
@@ -83,6 +83,12 @@ class PlayState extends FlxState
 		FlxG.worldBounds.setSize(1000,1000);
 
 	}
+
+	override public function onResize (width,height) {
+		super.onResize(width,height);
+		healthText.fieldWidth = width/2;
+		moneyText.fieldWidth = width/2;
+	}
 	
 	/**
 	 * Function that is called when this state is destroyed - you might want to 
@@ -99,6 +105,9 @@ class PlayState extends FlxState
 	override public function update():Void
 	{
 		super.update();
+
+		FlxG.camera.follow(player);
+		FlxSpriteUtil.screenCenter(turretButton,true,false);
 
 		//Allow placing of turrets
 		if (FlxG.keys.justPressed.SHIFT){

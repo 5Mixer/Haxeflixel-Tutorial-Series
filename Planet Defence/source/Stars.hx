@@ -19,6 +19,19 @@ class Stars extends flixel.addons.display.FlxStarField2D {
 
 		scrollFactor.set();
 		starVelocityOffset.set();
+
+		FlxG.signals.gameResized.add( function (w,h){
+			width = w;
+			height = h;
+			setSize(w,h);
+			try{
+				makeGraphic(FlxG.width*2,FlxG.height*2,FlxColor.BLACK);
+			}catch (e:Dynamic){
+
+			}
+
+			randomiseStars();
+		});
 	}
 
 	override public function update () {
@@ -27,5 +40,14 @@ class Stars extends flixel.addons.display.FlxStarField2D {
 
 		lastCamX = FlxG.camera.scroll.x;
 		lastCamY = FlxG.camera.scroll.y;
+	}
+
+	function randomiseStars(){
+		if (_stars != null){
+			for (star in _stars){
+				star.x = FlxRandom.intRanged(0,FlxG.width*2);
+				star.y = FlxRandom.intRanged(0,FlxG.height*2);
+			}
+		}
 	}
 }
